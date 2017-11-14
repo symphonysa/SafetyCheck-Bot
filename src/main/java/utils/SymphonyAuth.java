@@ -1,10 +1,16 @@
 package utils;
 
 import config.BotConfig;
+import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.impl.CustomHttpClient;
 import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.symphony.clients.AuthenticationClient;
+
+import javax.ws.rs.client.Client;
 
 public class SymphonyAuth {
 
@@ -14,8 +20,15 @@ public class SymphonyAuth {
 
         symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.V4);
 
-        //Init the Symphony authorization client, which requires both the key and session URL's.  In most cases,
-        //the same fqdn but different URLs.
+
+//        //Proxy config example
+//        ClientConfig clientConfig = new ClientConfig();
+//        clientConfig.connectorProvider(new ApacheConnectorProvider());
+//        clientConfig.property(ClientProperties.PROXY_URI, "https://wwwproxy:8080");  //Or change to http..etc.
+//        Client httpClient = CustomHttpClient.getClient(config.getLocalKeystorePath(),config.getLocalKeystorePassword(),config.getLocalKeystorePath(),config.getLocalKeystorePassword(),clientConfig);
+//
+//        AuthenticationClient authClient = new AuthenticationClient(config.getSessionAuthURL(), config.getKeyAuthUrl(),httpClient);
+
         AuthenticationClient authClient = new AuthenticationClient(config.getSessionAuthURL(), config.getKeyAuthUrl());
 
 
