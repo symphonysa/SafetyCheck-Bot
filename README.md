@@ -2,6 +2,7 @@
 Simple java Symphony bot
 
 Set the src/main/resources/sample-config.yml to look like this
+
 sessionAuthURL: https://your-pod.symphony.com/sessionauth
 keyAuthUrl: https://your-km.symphony.com:443/keyauth
 localKeystorePath: complete path to your keystore path
