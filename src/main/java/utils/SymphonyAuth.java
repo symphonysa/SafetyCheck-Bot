@@ -5,6 +5,7 @@ import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 import org.symphonyoss.client.SymphonyClient;
+import org.symphonyoss.client.SymphonyClientConfig;
 import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.impl.CustomHttpClient;
 import org.symphonyoss.client.model.SymAuth;
@@ -22,12 +23,16 @@ public class SymphonyAuth {
 
 
 //        //Proxy config example
-//        ClientConfig clientConfig = new ClientConfig();
-//        clientConfig.connectorProvider(new ApacheConnectorProvider());
-//        clientConfig.property(ClientProperties.PROXY_URI, "https://wwwproxy:8080");  //Or change to http..etc.
-//        Client httpClient = CustomHttpClient.getClient(config.getLocalKeystorePath(),config.getLocalKeystorePassword(),config.getLocalKeystorePath(),config.getLocalKeystorePassword(),clientConfig);
+//        ClientConfig proxyClientConfig = new ClientConfig();
+//        proxyClientConfig.connectorProvider(new ApacheConnectorProvider());
+//        proxyClientConfig.property(ClientProperties.PROXY_URI, "https://wwwproxy:8080");  //Or change to http..etc.
+//        proxyClientConfig.property(ClientProperties.PROXY_USERNAME, "username");
+//        proxyClientConfig.property(ClientProperties.PROXY_PASSWORD, "pass");
+//        Client proxyHttpClient = CustomHttpClient.getClient(config.getLocalKeystorePath(),config.getLocalKeystorePassword(),config.getLocalKeystorePath(),config.getLocalKeystorePassword(),proxyClientConfig);
 //
-//        AuthenticationClient authClient = new AuthenticationClient(config.getSessionAuthURL(), config.getKeyAuthUrl(),httpClient);
+//        Client localHttpClient = CustomHttpClient.getClient(config.getLocalKeystorePath(),config.getLocalKeystorePassword(),config.getLocalKeystorePath(),config.getLocalKeystorePassword());
+//
+//        AuthenticationClient authClient = new AuthenticationClient(config.getSessionAuthURL(), config.getKeyAuthUrl(),proxyHttpClient,localHttpClient);
 
         AuthenticationClient authClient = new AuthenticationClient(config.getSessionAuthURL(), config.getKeyAuthUrl());
 
@@ -42,13 +47,17 @@ public class SymphonyAuth {
         SymAuth symAuth = authClient.authenticate();
 
 
-        //With a valid SymAuth we can now init our client.
+        //Set agent and pod clients if custom are needed
+//        symClient.setAgentHttpClient(localHttpClient);
+//        symClient.setPodHttpClient(proxyHttpClient);
         symClient.init(
                 symAuth,
                 config.getBotEmailAddress(),
                 config.getAgentAPIEndpoint(),
                 config.getPodAPIEndpoint()
         );
+//        SymphonyClientConfig symphonyClientConfig = new SymphonyClientConfig(false);
+//        symClient.init(proxyClientConfig,localHttpClient, symphonyClientConfig);
 
         return symClient;
 
