@@ -5,7 +5,7 @@ Set the src/main/resources/sample-config.yml to look like this
 
     sessionAuthURL: https://your-pod.symphony.com/sessionauth
     keyAuthUrl: https://your-km.symphony.com:443/keyauth
-    localKeystorePath: complete path to your keystore path
+    localKeystorePath: complete path to your jks keystore
     localKeystorePassword: keystore password
     botCertPath: complete path to your bot's p12 file
     botCertPassword: password
