@@ -75,7 +75,7 @@ public class ChatBot implements ChatListener, ChatServiceListener {
 
         chat.addListener(this);
 
-        logger.debug("New chat session detected on stream {} with {}", chat.getStream().getId(), chat.getRemoteUsers());
+        logger.debug("New chat session detected on stream {} with {}", chat.getStream().getStreamId(), chat.getRemoteUsers());
     }
 
     @Override
