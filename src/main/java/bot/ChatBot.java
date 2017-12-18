@@ -50,7 +50,7 @@ public class ChatBot implements ChatListener, ChatServiceListener {
                 message.getMessageType());
         SymMessage message2;
 
-        if (message.getMessage().contains("test")) {
+        if (message.getMessageText().toLowerCase().contains("test")) {
 
 
             message2 = new SymMessage();

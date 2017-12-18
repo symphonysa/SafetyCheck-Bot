@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.events.*;
+import org.symphonyoss.client.exceptions.MessagesException;
 import org.symphonyoss.client.model.Room;
 import org.symphonyoss.client.services.RoomEventListener;
 import org.symphonyoss.client.services.RoomService;
@@ -46,16 +47,27 @@ public class RoomChatBot implements RoomServiceEventListener, RoomEventListener 
     @Override
     public void onRoomMessage(SymMessage message) {
 
-        try{
+        if (message == null)
+            return;
+        logger.debug("TS: {}\nFrom ID: {}\nSymMessage: {}\nSymMessage Type: {}",
+                message.getTimestamp(),
+                message.getFromUserId(),
+                message.getMessage(),
+                message.getMessageType());
+        SymMessage message2;
 
-            SymMessage aMessage = new SymMessage();
-            aMessage.setMessageText("Message received");
-
-            symClient.getMessagesClient().sendMessage(message.getStream(), aMessage);
+        if (message.getMessageText().toLowerCase().contains("test")) {
 
 
-        } catch (Exception e) {
-            System.out.print(e.toString());
+            message2 = new SymMessage();
+
+            message2.setMessage("<messageML><div><b><i>Message Received.</i></b></div></messageML>");
+            try {
+                symClient.getMessagesClient().sendMessage(message.getStream(), message2);
+            } catch (MessagesException e) {
+                logger.error("Failed to send message", e);
+            }
+
         }
     }
 
