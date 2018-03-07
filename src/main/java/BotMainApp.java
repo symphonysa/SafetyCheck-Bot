@@ -26,7 +26,7 @@ public class BotMainApp {
     public BotMainApp() {
         Yaml yaml = new Yaml();
         try (InputStream in = BotConfig.class
-                .getResourceAsStream("/config-sample.yml")) {
+                .getResourceAsStream("/prod-config.yml")) {
             config = yaml.loadAs(in, BotConfig.class);
         } catch (IOException e) {
             e.printStackTrace();

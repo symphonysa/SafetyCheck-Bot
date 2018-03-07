@@ -24,6 +24,7 @@ public class BotConfig {
 
     private String podAPIEndpoint;
 
+    private String mongoURL;
 
     @JsonProperty
     public String getSessionAuthURL() {
@@ -125,5 +126,12 @@ public class BotConfig {
         this.userEmailAddress = userEmailAddress;
     }
 
+    public String getMongoURL() {
+        return mongoURL;
+    }
+
+    public void setMongoURL(String mongoURL) {
+        this.mongoURL = mongoURL;
+    }
 }
 
